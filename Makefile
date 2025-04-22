@@ -40,6 +40,43 @@ db/migrations/up: confirm
 	@echo 'Running up migrations...'
 	migrate -path ./migrations -database ${GREENLIGHT_DB_DSN} up
 
+## run/frontend: run the frontend development server
+.PHONY: run/frontend
+run/frontend:
+	cd ./frontend && pnpm dev
+
+## frontend/install: install frontend dependencies
+.PHONY: frontend/install
+frontend/install:
+	cd ./frontend && pnpm install
+
+## frontend/build: build the frontend for production
+.PHONY: frontend/build
+frontend/build:
+	cd ./frontend && pnpm build
+
+## frontend/preview: preview the production build locally
+.PHONY: frontend/preview
+frontend/preview:
+	cd ./frontend && pnpm preview
+
+## frontend/lint: lint frontend code
+.PHONY: frontend/lint
+frontend/lint:
+	cd ./frontend && pnpm lint
+
+## frontend/test: run frontend tests
+.PHONY: frontend/test
+frontend/test:
+	cd ./frontend && pnpm test
+
+## run/all: run both api and frontend development servers
+.PHONY: run/all
+run/all:
+	@echo "Starting backend and frontend servers..."
+	@(make run/api &)
+	@(make run/frontend)
+
 # ==================================================================================== #
 # QUALITY CONTROL
 # ==================================================================================== #
