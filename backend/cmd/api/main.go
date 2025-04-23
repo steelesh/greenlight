@@ -47,6 +47,10 @@ type config struct {
 	cors struct {
 		trustedOrigins []string
 	}
+	frontend struct {
+		serve bool
+		dir   string
+	}
 }
 
 type application struct {
@@ -78,6 +82,8 @@ func main() {
 		cfg.cors.trustedOrigins = strings.Fields(val)
 		return nil
 	})
+	flag.BoolVar(&cfg.frontend.serve, "serve-frontend", false, "Serve the built frontend")
+	flag.StringVar(&cfg.frontend.dir, "frontend-dir", "./frontend/build", "Path to the frontend build directory")
 
 	displayVersion := flag.Bool("version", false, "Display version and exit")
 

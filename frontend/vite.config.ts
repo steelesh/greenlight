@@ -5,6 +5,14 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   plugins: [tailwindcss(), sveltekit()],
+  server: {
+    proxy: {
+      "/v1": {
+        target: "http://localhost:4000",
+        changeOrigin: true,
+      },
+    },
+  },
   test: {
     workspace: [
       {
