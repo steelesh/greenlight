@@ -23,9 +23,12 @@ func Version() string {
 		}
 	}
 
+	if revision == "" {
+		return "development"
+	}
+
 	if modified {
 		return fmt.Sprintf("%s-dirty", revision)
 	}
-
 	return revision
 }
